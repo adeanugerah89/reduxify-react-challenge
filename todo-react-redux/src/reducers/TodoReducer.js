@@ -1,22 +1,19 @@
 const initialState = {
-  todos: []
+  todos : []
 }
 
 const TodoReducer = (state=initialState, action) => {
   switch (action.type) {
     
     case 'ADD_TODO':
-      const todo = action.payload.todo
-      const newTodos = state.todos.concat(todo)
-      console.log(newTodos);
-      return {...state, todos: newTodos}
+      return {...state, todos: state.todos.concat(action.payload.todo)}
       
     case 'REMOVE_TODO':
-      const newData =  {...state, todos: state.todos.filter((todo,idx) => {
+      const newTodoList = {...state, todos: state.todos.filter( (todo,idx) => {
         return idx !== action.payload.index
       })}
-      return newData
-    
+      return newTodoList
+      
     default:
       return state
   }
