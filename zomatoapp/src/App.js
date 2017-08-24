@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux'
 
 import Todo from './components/Todo'
 import store from './store'
@@ -8,15 +9,8 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      currentValue: '',
-      todos: store.getState().todos
+      currentValue: ''
     }
-    
-    store.subscribe(() => {
-      this.setState({
-        todos: store.getState().todos
-      })
-    })
     
   }
   
@@ -27,25 +21,34 @@ class App extends Component {
   }
 
   render() {
+    
+    // store.subscribe(() => {
+    //   this.setState({
+    //     todos: store.getState().todos
+    //   })
+    // })
+    
     return(
-      <div>
-        <div className="container">
-          <div className="columns">
-            <div className="column is-half is-offset-one-quarter">
-              <div className="card">
-                <header className="card-header">
-                  <p className="card-header-title">
-                  Todo App
-                  </p>
-                </header>
-                <input onChange={ (e) => this.handleinput(e.target.value) }></input>
-                <button onClick={ () => store.dispatch(addTodo(this.state.currentValue)) }>Add</button>
-                <Todo/>
+      <Provider store={store}>
+        <div>
+          <div className="container">
+            <div className="columns">
+              <div className="column is-half is-offset-one-quarter">
+                <div className="card">
+                  <header className="card-header">
+                    <p className="card-header-title">
+                    Todo App
+                    </p>
+                  </header>
+                  <input onChange={ (e) => this.handleinput(e.target.value) }></input>
+                  <button onClick={ () => store.dispatch(addTodo(this.state.currentValue)) }>Add</button>
+                  <Todo/>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Provider>
     )
   }
 }

@@ -12,9 +12,10 @@ const TodoReducer = (state=initialState, action) => {
       return {...state, todos: newTodos}
       
     case 'REMOVE_TODO':
-      const newTodosWillupdate = state.todos
-      newTodosWillupdate.splice(action.payload.index, 1)
-      return {...state, todos: newTodosWillupdate}
+      const newData =  {...state, todos: state.todos.filter((todo,idx) => {
+        return idx !== action.payload.index
+      })}
+      return newData
     
     default:
       return state
